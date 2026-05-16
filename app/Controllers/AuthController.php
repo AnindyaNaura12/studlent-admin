@@ -26,7 +26,7 @@ class AuthController extends Controller {
                 session_start();
                 $_SESSION['admin_id']   = $admin['id'];
                 $_SESSION['admin_nama'] = $admin['nama'];
-                header('Location: ' . BASE_URL . 'home');
+                header('Location: ' . BASE_URL . '/dashboard');
                 exit;
             }
 
