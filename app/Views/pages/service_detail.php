@@ -21,6 +21,9 @@
         .nav-item:hover { background: #fff1e6; color: #f97316; }
         .nav-item.active { background: #fff1e6; color: #f97316; font-weight: 600; }
         .nav-item i { font-size: 18px; }
+        .sidebar-footer { padding: 16px 12px; border-top: 1px solid #ffe0cc; }
+        .logout-btn { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; font-size: 14px; color: #ef4444; text-decoration: none; transition: all 0.15s; width: 100%; background: none; border: none; cursor: pointer; }
+        .logout-btn:hover { background: #fee2e2; } 
 
         .main { margin-left: 240px; padding: 28px 32px; }
         .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
@@ -95,30 +98,22 @@
     </div>
     <nav class="sidebar-nav">
         <div class="nav-label">Menu</div>
-        <a href="/studlent-admin/public/dashboard" class="nav-item">
-            <i class="ti ti-layout-dashboard"></i> Dashboard
-        </a>
-        <a href="/studlent-admin/public/user" class="nav-item">
-            <i class="ti ti-users"></i> Users
-        </a>
-        <a href="/studlent-admin/public/order" class="nav-item">
-            <i class="ti ti-shopping-cart"></i> Orders
-        </a>
-        <a href="/studlent-admin/public/service" class="nav-item active">
-            <i class="ti ti-briefcase"></i> Services
-        </a>
-        <a href="/studlent-admin/public/withdrawals" class="nav-item">
-            <i class="ti ti-cash"></i> Withdrawals
-        </a>
-
+        <a href="<?= BASE_URL ?>dashboard" class="nav-item"><i class="ti ti-layout-dashboard"></i> Dashboard</a>
+        <a href="<?= BASE_URL ?>user" class="nav-item"><i class="ti ti-users"></i> Users</a>
+        <a href="<?= BASE_URL ?>order" class="nav-item"><i class="ti ti-shopping-cart"></i> Orders</a>
+        <a href="<?= BASE_URL ?>service" class="nav-item active"><i class="ti ti-briefcase"></i> Services</a>
+        <a href="<?= BASE_URL ?>withdrawal" class="nav-item"><i class="ti ti-cash"></i> Withdrawals</a>
         <div class="nav-label" style="margin-top:12px">Keuangan</div>
-        <a href="/studlent-admin/public/payments" class="nav-item">
-            <i class="ti ti-credit-card"></i> Payments
-        </a>
-        <a href="/studlent-admin/public/escrow" class="nav-item">
-            <i class="ti ti-safe"></i> Escrow
-        </a>
+        <a href="<?= BASE_URL ?>payment" class="nav-item"><i class="ti ti-credit-card"></i> Payments</a>
+        <a href="<?= BASE_URL ?>escrow" class="nav-item"><i class="ti ti-safe"></i> Escrow</a>
+        <div class="nav-label" style="margin-top:12px">Akun</div>
+        <a href="<?= BASE_URL ?>profile" class="nav-item"><i class="ti ti-user-circle"></i> Profile</a>
     </nav>
+    <div class="sidebar-footer">
+        <a href="<?= BASE_URL ?>auth/logout" class="logout-btn">
+            <i class="ti ti-logout"></i> Logout
+        </a>
+    </div>
 </aside>
 
 <main class="main">
@@ -127,7 +122,9 @@
             <h1>Detail Service</h1>
             <p>Informasi lengkap layanan freelancer</p>
         </div>
-        <div class="avatar">A</div>
+        <a href="<?= BASE_URL ?>profile" style="text-decoration:none">
+            <div class="avatar" title="Profile Admin">A</div>
+        </a>
     </div>
 
     <a href="<?= BASE_URL ?>service" class="btn-back"><i class="ti ti-arrow-left"></i> Kembali ke Services</a>

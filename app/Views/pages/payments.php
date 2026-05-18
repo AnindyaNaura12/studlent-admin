@@ -33,20 +33,35 @@
         .topbar p { font-size: 13px; color: #9ca3af; margin-top: 2px; }
         .avatar { width: 38px; height: 38px; border-radius: 50%; background: #f97316; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px; }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
-        .stat-card { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #ffe0cc; position: relative; overflow: hidden; }
-        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #f97316; }
-        .stat-card.pending::before  { background: #f59e0b; }
-        .stat-card.active::before   { background: #10b981; }
-        .stat-card.inactive::before { background: #6b7280; }
-        .stat-card.rejected::before { background: #ef4444; }
+        /* Summary Cards */
+        .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+        .summary-card { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #ffe0cc; position: relative; overflow: hidden; }
+        .summary-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #f97316; }
+        .summary-card.fee::before      { background: #8b5cf6; }
+        .summary-card.platform::before { background: #3b82f6; }
+        .summary-card.freelancer::before { background: #10b981; }
         .stat-icon { width: 40px; height: 40px; border-radius: 10px; background: #fff1e6; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 20px; color: #f97316; }
-        .stat-card.pending .stat-icon  { background: #fef3c7; color: #f59e0b; }
-        .stat-card.active .stat-icon   { background: #d1fae5; color: #10b981; }
-        .stat-card.inactive .stat-icon { background: #f3f4f6; color: #6b7280; }
-        .stat-card.rejected .stat-icon { background: #fee2e2; color: #ef4444; }
+        .summary-card.fee .stat-icon      { background: #ede9fe; color: #8b5cf6; }
+        .summary-card.platform .stat-icon { background: #dbeafe; color: #3b82f6; }
+        .summary-card.freelancer .stat-icon { background: #d1fae5; color: #10b981; }
         .stat-label { font-size: 12px; color: #9ca3af; margin-bottom: 4px; }
-        .stat-value { font-size: 26px; font-weight: 700; }
+        .stat-value { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+
+        /* Status Cards */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: #fff; border-radius: 12px; padding: 16px; border: 1px solid #ffe0cc; position: relative; overflow: hidden; }
+        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+        .stat-card.pending::before  { background: #f59e0b; }
+        .stat-card.paid::before     { background: #10b981; }
+        .stat-card.failed::before   { background: #ef4444; }
+        .stat-card.expired::before  { background: #6b7280; }
+        .stat-card .stat-icon { width: 36px; height: 36px; font-size: 17px; margin-bottom: 10px; }
+        .stat-card.pending .stat-icon  { background: #fef3c7; color: #f59e0b; }
+        .stat-card.paid .stat-icon     { background: #d1fae5; color: #10b981; }
+        .stat-card.failed .stat-icon   { background: #fee2e2; color: #ef4444; }
+        .stat-card.expired .stat-icon  { background: #f3f4f6; color: #6b7280; }
+        .stat-card .stat-label { font-size: 11px; }
+        .stat-card .stat-value { font-size: 22px; }
 
         .toolbar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
         .search-wrap { position: relative; flex: 1; min-width: 200px; }
@@ -69,26 +84,20 @@
         td { font-size: 13px; padding: 12px 20px; border-top: 1px solid #fff1e6; color: #374151; vertical-align: middle; }
         tr:hover td { background: #fff7f0; }
 
-        .thumbnail { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #fff1e6; display: flex; align-items: center; justify-content: center; color: #f97316; font-size: 20px; flex-shrink: 0; }
-        .thumbnail img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
-        .service-info { display: flex; align-items: center; gap: 12px; }
-        .service-title { font-weight: 500; color: #111827; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
         .badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-        .badge-active   { background: #d1fae5; color: #065f46; }
-        .badge-inactive { background: #f3f4f6; color: #6b7280; }
         .badge-pending  { background: #fef3c7; color: #92400e; }
-        .badge-rejected { background: #fee2e2; color: #991b1b; }
+        .badge-paid     { background: #d1fae5; color: #065f46; }
+        .badge-failed   { background: #fee2e2; color: #991b1b; }
+        .badge-expired  { background: #f3f4f6; color: #6b7280; }
+        .badge-held     { background: #fef3c7; color: #92400e; }
+        .badge-released { background: #d1fae5; color: #065f46; }
+        .badge-refunded { background: #fee2e2; color: #991b1b; }
 
-        .rating { display: flex; align-items: center; gap: 4px; font-size: 13px; color: #f59e0b; font-weight: 600; }
+        .amount { font-weight: 700; color: #f97316; }
+        .method-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; background: #f3f4f6; color: #374151; padding: 3px 8px; border-radius: 6px; }
 
-        .action-wrap { display: flex; gap: 6px; }
-        .btn-detail { padding: 5px 12px; background: #fff1e6; color: #f97316; border: 1px solid #fed7aa; border-radius: 6px; font-size: 12px; text-decoration: none; display: flex; align-items: center; gap: 4px; }
+        .btn-detail { padding: 5px 12px; background: #fff1e6; color: #f97316; border: 1px solid #fed7aa; border-radius: 6px; font-size: 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
         .btn-detail:hover { background: #fed7aa; }
-        .btn-approve { padding: 5px 12px; background: #d1fae5; color: #059669; border: 1px solid #a7f3d0; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        .btn-approve:hover { background: #a7f3d0; }
-        .btn-reject { padding: 5px 12px; background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        .btn-reject:hover { background: #fecaca; }
 
         .empty-state { text-align: center; padding: 48px 20px; color: #9ca3af; }
         .empty-state i { font-size: 40px; display: block; margin-bottom: 10px; }
@@ -117,10 +126,10 @@
         <a href="<?= BASE_URL ?>dashboard" class="nav-item"><i class="ti ti-layout-dashboard"></i> Dashboard</a>
         <a href="<?= BASE_URL ?>user" class="nav-item"><i class="ti ti-users"></i> Users</a>
         <a href="<?= BASE_URL ?>order" class="nav-item"><i class="ti ti-shopping-cart"></i> Orders</a>
-        <a href="<?= BASE_URL ?>service" class="nav-item active"><i class="ti ti-briefcase"></i> Services</a>
+        <a href="<?= BASE_URL ?>service" class="nav-item"><i class="ti ti-briefcase"></i> Services</a>
         <a href="<?= BASE_URL ?>withdrawal" class="nav-item"><i class="ti ti-cash"></i> Withdrawals</a>
         <div class="nav-label" style="margin-top:12px">Keuangan</div>
-        <a href="<?= BASE_URL ?>payment" class="nav-item"><i class="ti ti-credit-card"></i> Payments</a>
+        <a href="<?= BASE_URL ?>payment" class="nav-item active"><i class="ti ti-credit-card"></i> Payments</a>
         <a href="<?= BASE_URL ?>escrow" class="nav-item"><i class="ti ti-safe"></i> Escrow</a>
         <div class="nav-label" style="margin-top:12px">Akun</div>
         <a href="<?= BASE_URL ?>profile" class="nav-item"><i class="ti ti-user-circle"></i> Profile</a>
@@ -135,35 +144,59 @@
 <main class="main">
     <div class="topbar">
         <div>
-            <h1>Services</h1>
-            <p>Kelola semua layanan freelancer Studlent</p>
+            <h1>Payments</h1>
+            <p>Ringkasan dan detail transaksi pembayaran</p>
         </div>
         <a href="<?= BASE_URL ?>profile" style="text-decoration:none">
             <div class="avatar" title="Profile Admin">A</div>
         </a>
     </div>
 
-    <!-- Stat Cards -->
+    <!-- Summary Keuangan -->
+    <div class="summary-grid">
+        <div class="summary-card">
+            <div class="stat-icon"><i class="ti ti-trending-up"></i></div>
+            <div class="stat-label">Total Revenue</div>
+            <div class="stat-value">Rp <?= number_format($summary['total_revenue'] ?? 0, 0, ',', '.') ?></div>
+        </div>
+        <div class="summary-card fee">
+            <div class="stat-icon"><i class="ti ti-percentage"></i></div>
+            <div class="stat-label">Total Admin Fee</div>
+            <div class="stat-value">Rp <?= number_format($summary['total_fee'] ?? 0, 0, ',', '.') ?></div>
+        </div>
+        <div class="summary-card platform">
+            <div class="stat-icon"><i class="ti ti-building"></i></div>
+            <div class="stat-label">Platform Fee</div>
+            <div class="stat-value">Rp <?= number_format($summary['total_platform'] ?? 0, 0, ',', '.') ?></div>
+        </div>
+        <div class="summary-card freelancer">
+            <div class="stat-icon"><i class="ti ti-user-dollar"></i></div>
+            <div class="stat-label">Freelancer Receive</div>
+            <div class="stat-value">Rp <?= number_format($summary['total_freelancer'] ?? 0, 0, ',', '.') ?></div>
+        </div>
+    </div>
+
+    <!-- Status Counts -->
     <div class="stats-grid">
         <div class="stat-card pending">
             <div class="stat-icon"><i class="ti ti-clock"></i></div>
-            <div class="stat-label">Pending Review</div>
+            <div class="stat-label">Pending</div>
             <div class="stat-value"><?= number_format($statusCounts['pending'] ?? 0) ?></div>
         </div>
-        <div class="stat-card active">
+        <div class="stat-card paid">
             <div class="stat-icon"><i class="ti ti-circle-check"></i></div>
-            <div class="stat-label">Active</div>
-            <div class="stat-value"><?= number_format($statusCounts['active'] ?? 0) ?></div>
+            <div class="stat-label">Paid</div>
+            <div class="stat-value"><?= number_format($statusCounts['paid'] ?? 0) ?></div>
         </div>
-        <div class="stat-card inactive">
-            <div class="stat-icon"><i class="ti ti-eye-off"></i></div>
-            <div class="stat-label">Inactive</div>
-            <div class="stat-value"><?= number_format($statusCounts['inactive'] ?? 0) ?></div>
-        </div>
-        <div class="stat-card rejected">
+        <div class="stat-card failed">
             <div class="stat-icon"><i class="ti ti-circle-x"></i></div>
-            <div class="stat-label">Rejected</div>
-            <div class="stat-value"><?= number_format($statusCounts['rejected'] ?? 0) ?></div>
+            <div class="stat-label">Failed</div>
+            <div class="stat-value"><?= number_format($statusCounts['failed'] ?? 0) ?></div>
+        </div>
+        <div class="stat-card expired">
+            <div class="stat-icon"><i class="ti ti-clock-off"></i></div>
+            <div class="stat-label">Expired</div>
+            <div class="stat-value"><?= number_format($statusCounts['expired'] ?? 0) ?></div>
         </div>
     </div>
 
@@ -172,98 +205,71 @@
         <div class="toolbar">
             <div class="search-wrap">
                 <i class="ti ti-search"></i>
-                <input type="text" name="search" placeholder="Cari judul service..." value="<?= htmlspecialchars($search) ?>">
+                <input type="text" name="search" placeholder="Cari metode atau ID order..." value="<?= htmlspecialchars($search) ?>">
             </div>
-            <select name="category">
-                <option value="">Semua Kategori</option>
-                <?php foreach ($categories as $cat): ?>
-                    <option value="<?= htmlspecialchars($cat['id_category']) ?>" <?= $category === $cat['id_category'] ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($cat['nama']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
             <select name="status">
                 <option value="">Semua Status</option>
-                <option value="pending"  <?= $status === 'pending'  ? 'selected' : '' ?>>Pending</option>
-                <option value="active"   <?= $status === 'active'   ? 'selected' : '' ?>>Active</option>
-                <option value="inactive" <?= $status === 'inactive' ? 'selected' : '' ?>>Inactive</option>
-                <option value="rejected" <?= $status === 'rejected' ? 'selected' : '' ?>>Rejected</option>
+                <option value="pending" <?= $status === 'pending' ? 'selected' : '' ?>>Pending</option>
+                <option value="paid"    <?= $status === 'paid'    ? 'selected' : '' ?>>Paid</option>
+                <option value="failed"  <?= $status === 'failed'  ? 'selected' : '' ?>>Failed</option>
+                <option value="expired" <?= $status === 'expired' ? 'selected' : '' ?>>Expired</option>
+            </select>
+            <select name="escrow">
+                <option value="">Semua Escrow</option>
+                <option value="held"     <?= $escrow === 'held'     ? 'selected' : '' ?>>Held</option>
+                <option value="released" <?= $escrow === 'released' ? 'selected' : '' ?>>Released</option>
+                <option value="refunded" <?= $escrow === 'refunded' ? 'selected' : '' ?>>Refunded</option>
             </select>
             <button type="submit" class="btn-filter"><i class="ti ti-filter"></i> Filter</button>
-            <a href="<?= BASE_URL ?>service" class="btn-reset"><i class="ti ti-x"></i> Reset</a>
+            <a href="<?= BASE_URL ?>payment" class="btn-reset"><i class="ti ti-x"></i> Reset</a>
         </div>
     </form>
 
     <!-- Table -->
     <div class="panel">
         <div class="panel-header">
-            <span class="panel-title">Daftar Services</span>
-            <span class="total-badge"><?= count($services) ?> service</span>
+            <span class="panel-title">Daftar Payments</span>
+            <span class="total-badge"><?= count($payments) ?> transaksi</span>
         </div>
         <table>
             <thead>
                 <tr>
-                    <th>Service</th>
-                    <th>ID Freelancer</th>
-                    <th>Rating</th>
-                    <th>Total Order</th>
+                    <th>ID Payment</th>
+                    <th>ID Order</th>
+                    <th>Metode</th>
+                    <th>Amount</th>
+                    <th>Platform Fee</th>
+                    <th>Freelancer</th>
                     <th>Status</th>
-                    <th>Dibuat</th>
+                    <th>Escrow</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($services)): ?>
-                    <?php foreach ($services as $svc): ?>
+                <?php if (!empty($payments)): ?>
+                    <?php foreach ($payments as $pay): ?>
                     <tr>
+                        <td style="font-family:monospace;font-size:12px">#<?= htmlspecialchars(substr($pay['id_payment'], 0, 8)) ?></td>
+                        <td style="font-family:monospace;font-size:12px"><?= htmlspecialchars(substr($pay['id_order'] ?? '-', 0, 8)) ?></td>
+                        <td><span class="method-badge"><i class="ti ti-credit-card" style="font-size:13px"></i> <?= htmlspecialchars(strtoupper($pay['metode'] ?? '-')) ?></span></td>
+                        <td><span class="amount">Rp <?= number_format($pay['amount'] ?? 0, 0, ',', '.') ?></span></td>
+                        <td>Rp <?= number_format($pay['platform_fee'] ?? 0, 0, ',', '.') ?></td>
+                        <td>Rp <?= number_format($pay['freelancer_receive'] ?? 0, 0, ',', '.') ?></td>
+                        <td><span class="badge badge-<?= htmlspecialchars($pay['status']) ?>"><?= ucfirst(htmlspecialchars($pay['status'])) ?></span></td>
+                        <td><span class="badge badge-<?= htmlspecialchars($pay['escrow_status'] ?? 'held') ?>"><?= ucfirst(htmlspecialchars($pay['escrow_status'] ?? '-')) ?></span></td>
                         <td>
-                            <div class="service-info">
-                                <div class="thumbnail">
-                                    <?php if (!empty($svc['thumbnail_url'])): ?>
-                                        <img src="<?= htmlspecialchars($svc['thumbnail_url']) ?>" alt="">
-                                    <?php else: ?>
-                                        <i class="ti ti-briefcase"></i>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="service-title"><?= htmlspecialchars($svc['judul'] ?? '-') ?></div>
-                            </div>
-                        </td>
-                        <td style="font-family:monospace;font-size:12px"><?= htmlspecialchars(substr($svc['id_freelancer'] ?? '-', 0, 8)) ?></td>
-                        <td>
-                            <div class="rating">
-                                <i class="ti ti-star-filled" style="font-size:14px"></i>
-                                <?= number_format($svc['rating_avg'] ?? 0, 1) ?>
-                            </div>
-                        </td>
-                        <td><?= number_format($svc['total_order'] ?? 0) ?></td>
-                        <td><span class="badge badge-<?= htmlspecialchars($svc['status']) ?>"><?= ucfirst(htmlspecialchars($svc['status'])) ?></span></td>
-                        <td><?= !empty($svc['created_at']) ? date('d M Y', strtotime($svc['created_at'])) : '-' ?></td>
-                        <td>
-                            <div class="action-wrap">
-                                <a href="<?= BASE_URL ?>service/detail?id=<?= urlencode($svc['id_service']) ?>" class="btn-detail">
-                                    <i class="ti ti-eye"></i> Detail
-                                </a>
-                                <?php if ($svc['status'] === 'pending'): ?>
-                                    <form method="POST" action="<?= BASE_URL ?>service/updatestatus" style="margin:0;display:flex;gap:6px">
-                                        <input type="hidden" name="id" value="<?= htmlspecialchars($svc['id_service']) ?>">
-                                        <button type="submit" name="status" value="active" class="btn-approve" onclick="return confirm('Approve service ini?')">
-                                            <i class="ti ti-check"></i> Approve
-                                        </button>
-                                        <button type="submit" name="status" value="rejected" class="btn-reject" onclick="return confirm('Reject service ini?')">
-                                            <i class="ti ti-x"></i> Reject
-                                        </button>
-                                    </form>
-                                <?php endif; ?>
-                            </div>
+                            <a href="<?= BASE_URL ?>payment/detail?id=<?= urlencode($pay['id_payment']) ?>" class="btn-detail">
+                                <i class="ti ti-eye"></i> Detail
+                            </a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7">
+                        <td colspan="9">
                             <div class="empty-state">
-                                <i class="ti ti-briefcase-off"></i>
-                                Tidak ada service ditemukan
+                                <i class="ti ti-receipt-off"></i>
+                                Tidak ada payment ditemukan
                             </div>
                         </td>
                     </tr>

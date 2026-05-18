@@ -9,7 +9,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: #fff7f0; color: #1a1a1a; min-height: 100vh; }
 
-        /* Sidebar */
         .sidebar { position: fixed; top: 0; left: 0; width: 240px; height: 100vh; background: #fff; border-right: 1px solid #ffe0cc; display: flex; flex-direction: column; z-index: 100; }
         .sidebar-logo { padding: 24px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #ffe0cc; }
         .logo-box { width: 40px; height: 40px; background: #f97316; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
@@ -26,22 +25,26 @@
         .logout-btn { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; font-size: 14px; color: #ef4444; text-decoration: none; transition: all 0.15s; width: 100%; background: none; border: none; cursor: pointer; }
         .logout-btn:hover { background: #fee2e2; }
 
-        /* Main */
         .main { margin-left: 240px; padding: 28px 32px; }
         .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
         .topbar h1 { font-size: 22px; font-weight: 600; }
         .topbar p { font-size: 13px; color: #9ca3af; margin-top: 2px; }
         .avatar { width: 38px; height: 38px; border-radius: 50%; background: #f97316; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px; }
 
-        /* Stat Cards */
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
         .stat-card { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #ffe0cc; position: relative; overflow: hidden; }
         .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #f97316; }
+        .stat-card.pending::before  { background: #f59e0b; }
+        .stat-card.approved::before { background: #10b981; }
+        .stat-card.rejected::before { background: #ef4444; }
+        .stat-card.total::before    { background: #f97316; }
         .stat-icon { width: 40px; height: 40px; border-radius: 10px; background: #fff1e6; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 20px; color: #f97316; }
+        .stat-card.pending .stat-icon  { background: #fef3c7; color: #f59e0b; }
+        .stat-card.approved .stat-icon { background: #d1fae5; color: #10b981; }
+        .stat-card.rejected .stat-icon { background: #fee2e2; color: #ef4444; }
         .stat-label { font-size: 12px; color: #9ca3af; margin-bottom: 4px; }
-        .stat-value { font-size: 26px; font-weight: 700; }
+        .stat-value { font-size: 22px; font-weight: 700; }
 
-        /* Toolbar */
         .toolbar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
         .search-wrap { position: relative; flex: 1; min-width: 200px; }
         .search-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 17px; }
@@ -53,39 +56,30 @@
         .btn-filter:hover { background: #ea6c0a; }
         .btn-reset { padding: 9px 14px; background: #fff; color: #6b7280; border: 1px solid #ffe0cc; border-radius: 8px; font-size: 14px; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px; }
 
-        /* Table */
         .panel { background: #fff; border-radius: 12px; border: 1px solid #ffe0cc; overflow: hidden; }
         .panel-header { padding: 16px 20px; border-bottom: 1px solid #ffe0cc; display: flex; justify-content: space-between; align-items: center; }
         .panel-title { font-size: 14px; font-weight: 600; }
         .total-badge { font-size: 12px; background: #fff1e6; color: #f97316; padding: 3px 10px; border-radius: 20px; }
+
         table { width: 100%; border-collapse: collapse; }
         th { font-size: 11px; text-transform: uppercase; color: #9ca3af; padding: 10px 20px; text-align: left; background: #fff7f0; }
         td { font-size: 13px; padding: 12px 20px; border-top: 1px solid #fff1e6; color: #374151; vertical-align: middle; }
         tr:hover td { background: #fff7f0; }
 
-        /* Avatar user */
-        .user-avatar { width: 34px; height: 34px; border-radius: 50%; background: #f97316; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 13px; flex-shrink: 0; overflow: hidden; }
-        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .user-info { display: flex; align-items: center; gap: 10px; }
-        .user-name { font-weight: 500; color: #111827; }
-        .user-username { font-size: 12px; color: #9ca3af; }
-
-        /* Badge */
         .badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-        .badge-client     { background: #dbeafe; color: #1e40af; }
-        .badge-freelancer { background: #d1fae5; color: #065f46; }
-        .badge-admin      { background: #fae8ff; color: #7e22ce; }
-        .badge-active     { background: #d1fae5; color: #065f46; }
-        .badge-inactive   { background: #fee2e2; color: #991b1b; }
+        .badge-pending  { background: #fef3c7; color: #92400e; }
+        .badge-approved { background: #d1fae5; color: #065f46; }
+        .badge-rejected { background: #fee2e2; color: #991b1b; }
 
-        /* Actions */
+        .amount { font-weight: 700; color: #f97316; }
+
         .action-wrap { display: flex; gap: 6px; }
         .btn-detail { padding: 5px 12px; background: #fff1e6; color: #f97316; border: 1px solid #fed7aa; border-radius: 6px; font-size: 12px; text-decoration: none; display: flex; align-items: center; gap: 4px; }
         .btn-detail:hover { background: #fed7aa; }
-        .btn-toggle-on  { padding: 5px 12px; background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        .btn-toggle-off { padding: 5px 12px; background: #d1fae5; color: #059669; border: 1px solid #a7f3d0; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        .btn-toggle-on:hover  { background: #fecaca; }
-        .btn-toggle-off:hover { background: #a7f3d0; }
+        .btn-approve { padding: 5px 12px; background: #d1fae5; color: #059669; border: 1px solid #a7f3d0; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+        .btn-approve:hover { background: #a7f3d0; }
+        .btn-reject { padding: 5px 12px; background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+        .btn-reject:hover { background: #fecaca; }
 
         .empty-state { text-align: center; padding: 48px 20px; color: #9ca3af; }
         .empty-state i { font-size: 40px; display: block; margin-bottom: 10px; }
@@ -93,7 +87,6 @@
 </head>
 <body>
 
-<!-- Sidebar -->
 <aside class="sidebar">
     <div class="sidebar-logo">
         <div class="logo-box">
@@ -113,10 +106,10 @@
     <nav class="sidebar-nav">
         <div class="nav-label">Menu</div>
         <a href="<?= BASE_URL ?>dashboard" class="nav-item"><i class="ti ti-layout-dashboard"></i> Dashboard</a>
-        <a href="<?= BASE_URL ?>user" class="nav-item active"><i class="ti ti-users"></i> Users</a>
+        <a href="<?= BASE_URL ?>user" class="nav-item"><i class="ti ti-users"></i> Users</a>
         <a href="<?= BASE_URL ?>order" class="nav-item"><i class="ti ti-shopping-cart"></i> Orders</a>
         <a href="<?= BASE_URL ?>service" class="nav-item"><i class="ti ti-briefcase"></i> Services</a>
-        <a href="<?= BASE_URL ?>withdrawal" class="nav-item"><i class="ti ti-cash"></i> Withdrawals</a>
+        <a href="<?= BASE_URL ?>withdrawal" class="nav-item active"><i class="ti ti-cash"></i> Withdrawals</a>
         <div class="nav-label" style="margin-top:12px">Keuangan</div>
         <a href="<?= BASE_URL ?>payment" class="nav-item"><i class="ti ti-credit-card"></i> Payments</a>
         <a href="<?= BASE_URL ?>escrow" class="nav-item"><i class="ti ti-safe"></i> Escrow</a>
@@ -130,12 +123,11 @@
     </div>
 </aside>
 
-<!-- Main -->
 <main class="main">
     <div class="topbar">
         <div>
-            <h1>Users</h1>
-            <p>Kelola semua pengguna Studlent</p>
+            <h1>Withdrawals</h1>
+            <p>Kelola permintaan penarikan dana freelancer</p>
         </div>
         <a href="<?= BASE_URL ?>profile" style="text-decoration:none">
             <div class="avatar" title="Profile Admin">A</div>
@@ -144,20 +136,25 @@
 
     <!-- Stat Cards -->
     <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-icon"><i class="ti ti-user"></i></div>
-            <div class="stat-label">Client</div>
-            <div class="stat-value"><?= number_format($roleCounts['client'] ?? 0) ?></div>
+        <div class="stat-card pending">
+            <div class="stat-icon"><i class="ti ti-clock"></i></div>
+            <div class="stat-label">Pending</div>
+            <div class="stat-value"><?= number_format($statusCounts['pending'] ?? 0) ?></div>
         </div>
-        <div class="stat-card">
-            <div class="stat-icon"><i class="ti ti-tool"></i></div>
-            <div class="stat-label">Freelancer</div>
-            <div class="stat-value"><?= number_format($roleCounts['freelancer'] ?? 0) ?></div>
+        <div class="stat-card approved">
+            <div class="stat-icon"><i class="ti ti-circle-check"></i></div>
+            <div class="stat-label">Approved</div>
+            <div class="stat-value"><?= number_format($statusCounts['approved'] ?? 0) ?></div>
         </div>
-        <div class="stat-card">
-            <div class="stat-icon"><i class="ti ti-shield"></i></div>
-            <div class="stat-label">Admin</div>
-            <div class="stat-value"><?= number_format($roleCounts['admin'] ?? 0) ?></div>
+        <div class="stat-card rejected">
+            <div class="stat-icon"><i class="ti ti-circle-x"></i></div>
+            <div class="stat-label">Rejected</div>
+            <div class="stat-value"><?= number_format($statusCounts['rejected'] ?? 0) ?></div>
+        </div>
+        <div class="stat-card total">
+            <div class="stat-icon"><i class="ti ti-cash"></i></div>
+            <div class="stat-label">Total Dicairkan</div>
+            <div class="stat-value" style="font-size:16px">Rp <?= number_format($totalApproved ?? 0, 0, ',', '.') ?></div>
         </div>
     </div>
 
@@ -166,100 +163,75 @@
         <div class="toolbar">
             <div class="search-wrap">
                 <i class="ti ti-search"></i>
-                <input type="text" name="search" placeholder="Cari nama, email, username..." value="<?= htmlspecialchars($search) ?>">
+                <input type="text" name="search" placeholder="Cari bank atau no rekening..." value="<?= htmlspecialchars($search) ?>">
             </div>
-            <select name="role">
-                <option value="">Semua Role</option>
-                <option value="client"     <?= $role === 'client'     ? 'selected' : '' ?>>Client</option>
-                <option value="freelancer" <?= $role === 'freelancer' ? 'selected' : '' ?>>Freelancer</option>
-                <option value="admin"      <?= $role === 'admin'      ? 'selected' : '' ?>>Admin</option>
-            </select>
             <select name="status">
                 <option value="">Semua Status</option>
-                <option value="true"  <?= $status === 'true'  ? 'selected' : '' ?>>Aktif</option>
-                <option value="false" <?= $status === 'false' ? 'selected' : '' ?>>Nonaktif</option>
+                <option value="pending"  <?= $status === 'pending'  ? 'selected' : '' ?>>Pending</option>
+                <option value="approved" <?= $status === 'approved' ? 'selected' : '' ?>>Approved</option>
+                <option value="rejected" <?= $status === 'rejected' ? 'selected' : '' ?>>Rejected</option>
             </select>
             <button type="submit" class="btn-filter"><i class="ti ti-filter"></i> Filter</button>
-            <a href="/user" class="btn-reset"><i class="ti ti-x"></i> Reset</a>
+            <a href="<?= BASE_URL ?>withdrawal" class="btn-reset"><i class="ti ti-x"></i> Reset</a>
         </div>
     </form>
 
     <!-- Table -->
     <div class="panel">
         <div class="panel-header">
-            <span class="panel-title">Daftar Users</span>
-            <span class="total-badge"><?= count($users) ?> user</span>
+            <span class="panel-title">Daftar Withdrawal</span>
+            <span class="total-badge"><?= count($withdrawals) ?> request</span>
         </div>
         <table>
             <thead>
                 <tr>
-                    <th>User</th>
-                    <th>Email</th>
-                    <th>No. HP</th>
-                    <th>Role</th>
+                    <th>ID Withdraw</th>
+                    <th>ID User</th>
+                    <th>Bank</th>
+                    <th>No Rekening</th>
+                    <th>Amount</th>
                     <th>Status</th>
-                    <th>Bergabung</th>
+                    <th>Tanggal</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($users)): ?>
-                    <?php foreach ($users as $user): ?>
+                <?php if (!empty($withdrawals)): ?>
+                    <?php foreach ($withdrawals as $wd): ?>
                     <tr>
-                        <td>
-                            <div class="user-info">
-                                <div class="user-avatar">
-                                    <?php if (!empty($user['foto'])): ?>
-                                        <img src="<?= htmlspecialchars($user['foto']) ?>" alt="">
-                                    <?php else: ?>
-                                        <?= strtoupper(substr($user['nama'] ?? 'U', 0, 1)) ?>
-                                    <?php endif; ?>
-                                </div>
-                                <div>
-                                    <div class="user-name"><?= htmlspecialchars($user['nama'] ?? '-') ?></div>
-                                    <div class="user-username">@<?= htmlspecialchars($user['username'] ?? '-') ?></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><?= htmlspecialchars($user['email'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($user['no_hp'] ?? '-') ?></td>
-                        <td><span class="badge badge-<?= htmlspecialchars($user['role'] ?? '') ?>"><?= ucfirst(htmlspecialchars($user['role'] ?? '-')) ?></span></td>
-                        <td>
-                            <?php if ($user['is_active']): ?>
-                                <span class="badge badge-active">Aktif</span>
-                            <?php else: ?>
-                                <span class="badge badge-inactive">Nonaktif</span>
-                            <?php endif; ?>
-                        </td>
-                        <td><?= !empty($user['joined_at']) ? date('d M Y', strtotime($user['joined_at'])) : '-' ?></td>
+                        <td style="font-family:monospace;font-size:12px">#<?= htmlspecialchars(substr($wd['id_withdraw'], 0, 8)) ?></td>
+                        <td style="font-family:monospace;font-size:12px"><?= htmlspecialchars(substr($wd['id_user'] ?? '-', 0, 8)) ?></td>
+                        <td><?= htmlspecialchars(strtoupper($wd['bank_name'] ?? '-')) ?></td>
+                        <td><?= htmlspecialchars($wd['no_rekening'] ?? '-') ?></td>
+                        <td><span class="amount">Rp <?= number_format($wd['amount'] ?? 0, 0, ',', '.') ?></span></td>
+                        <td><span class="badge badge-<?= htmlspecialchars($wd['status']) ?>"><?= ucfirst(htmlspecialchars($wd['status'])) ?></span></td>
+                        <td><?= !empty($wd['created_at']) ? date('d M Y', strtotime($wd['created_at'])) : '-' ?></td>
                         <td>
                             <div class="action-wrap">
-                                <a href="/user/detail?id=<?= urlencode($user['id_user']) ?>" class="btn-detail">
+                                <a href="<?= BASE_URL ?>withdrawal/detail?id=<?= urlencode($wd['id_withdraw']) ?>" class="btn-detail">
                                     <i class="ti ti-eye"></i> Detail
                                 </a>
-                                <form method="POST" action="/user/toggle" style="margin:0">
-                                    <input type="hidden" name="id" value="<?= htmlspecialchars($user['id_user']) ?>">
-                                    <input type="hidden" name="status" value="<?= $user['is_active'] ? '1' : '0' ?>">
-                                    <?php if ($user['is_active']): ?>
-                                        <button type="submit" class="btn-toggle-on" onclick="return confirm('Nonaktifkan user ini?')">
-                                            <i class="ti ti-user-off"></i> Nonaktifkan
+                                <?php if ($wd['status'] === 'pending'): ?>
+                                    <form method="POST" action="<?= BASE_URL ?>withdrawal/updatestatus" style="margin:0;display:flex;gap:6px">
+                                        <input type="hidden" name="id" value="<?= htmlspecialchars($wd['id_withdraw']) ?>">
+                                        <button type="submit" name="status" value="approved" class="btn-approve" onclick="return confirm('Approve withdrawal ini?')">
+                                            <i class="ti ti-check"></i>
                                         </button>
-                                    <?php else: ?>
-                                        <button type="submit" class="btn-toggle-off" onclick="return confirm('Aktifkan user ini?')">
-                                            <i class="ti ti-user-check"></i> Aktifkan
+                                        <button type="submit" name="status" value="rejected" class="btn-reject" onclick="return confirm('Reject withdrawal ini?')">
+                                            <i class="ti ti-x"></i>
                                         </button>
-                                    <?php endif; ?>
-                                </form>
+                                    </form>
+                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7">
+                        <td colspan="8">
                             <div class="empty-state">
-                                <i class="ti ti-users-off"></i>
-                                Tidak ada user ditemukan
+                                <i class="ti ti-cash-off"></i>
+                                Tidak ada withdrawal ditemukan
                             </div>
                         </td>
                     </tr>
