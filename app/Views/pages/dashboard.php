@@ -255,27 +255,27 @@
 
     <nav class="sidebar-nav">
         <div class="nav-label">Menu</div>
-        <a href="/dashboard" class="nav-item active">
+        <a href="/studlent-admin/public/dashboard" class="nav-item active">
             <i class="ti ti-layout-dashboard"></i> Dashboard
         </a>
-        <a href="/users" class="nav-item">
+        <a href="/studlent-admin/public/user" class="nav-item">
             <i class="ti ti-users"></i> Users
         </a>
-        <a href="/orders" class="nav-item">
+        <a href="/studlent-admin/public/order" class="nav-item">
             <i class="ti ti-shopping-cart"></i> Orders
         </a>
-        <a href="/services" class="nav-item">
+        <a href="/studlent-admin/public/service" class="nav-item">
             <i class="ti ti-briefcase"></i> Services
         </a>
-        <a href="/withdrawals" class="nav-item">
+        <a href="/studlent-admin/public/withdrawals" class="nav-item">
             <i class="ti ti-cash"></i> Withdrawals
         </a>
 
         <div class="nav-label" style="margin-top:12px">Keuangan</div>
-        <a href="/payments" class="nav-item">
+        <a href="/studlent-admin/public/payments" class="nav-item">
             <i class="ti ti-credit-card"></i> Payments
         </a>
-        <a href="/escrow" class="nav-item">
+        <a href="/studlent-admin/public/escrow" class="nav-item">
             <i class="ti ti-safe"></i> Escrow
         </a>
     </nav>
