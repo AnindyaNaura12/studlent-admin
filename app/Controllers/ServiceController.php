@@ -49,8 +49,25 @@ class ServiceController extends Controller {
         $status = $_POST['status'] ?? null;
 
         $allowed = ['active', 'inactive', 'pending', 'rejected'];
-        if ($id && in_array($status, $allowed)) {
-            $this->model->updateStatus($id, $status);
+       // validasi
+        if (!$id || !in_array($status, $allowed)) {
+
+            header('Location: ' . BASE_URL . 'service');
+
+            exit;
+        }
+
+        // update status
+        $updated = $this->model->updateStatus(
+            $id,
+            $status
+        );
+
+
+        // dipakai alert sukses/gagal
+        if (!$updated) {
+
+            die('Gagal update status service');
         }
 
         // Redirect balik ke detail kalau ada, atau ke list

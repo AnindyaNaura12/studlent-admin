@@ -8,54 +8,86 @@ class DashboardModel {
         $this->client = new SupabaseClient();
     }
 
-    public function getRecentOrders() {
-        return $this->client->get('orders', 'select=id_orders,status,created_at&order=created_at.desc&limit=5');
-    }
-
-    public function getRecentUsers() {
-        return $this->client->get('users', 'select=id_user,full_name,email,created_at&order=created_at.desc&limit=5');
+    private function safeCount($result) {
+        if (!is_array($result) || isset($result['error']) || isset($result['code'])) return 0;
+        return count($result);
     }
 
     public function getTotalUsers() {
-        $result = $this->client->get('users', 'select=id_user');
-        return is_array($result) ? count($result) : 0;
+        return $this->safeCount(
+            $this->client->get('users', 'select=id_user&role=neq.admin')
+        );
     }
 
     public function getTotalFreelancers() {
-        $result = $this->client->get('freelancer_profiles', 'select=id_user');
-        return is_array($result) ? count($result) : 0;
+        return $this->safeCount(
+            $this->client->get('freelancer_profiles', 'select=id_profile')
+        );
     }
 
     public function getTotalOrders() {
-        $result = $this->client->get('orders', 'select=id_orders');
-        return is_array($result) ? count($result) : 0;
+        return $this->safeCount(
+            $this->client->get('orders', 'select=id_order')
+        );
     }
 
     public function getTotalServices() {
-        $result = $this->client->get('services', 'select=id_orders');
-        return is_array($result) ? count($result) : 0;
+        return $this->safeCount(
+            $this->client->get('services', 'select=id_service')
+        );
     }
 
     public function getPendingWithdrawals() {
-        $result = $this->client->get('withdrawals', 'select=id_user&status=eq.pending');
-        return is_array($result) ? count($result) : 0;
+        return $this->safeCount(
+            $this->client->get('withdrawals', 'select=id_withdraw&status=eq.pending')
+        );
     }
 
     public function getTotalRevenue() {
-        $result = $this->client->get('payments', 'select=amount&status=eq.completed');
-        if (!is_array($result)) return 0;
-        // Cek kalau hasilnya error dari Supabase
-        if (isset($result['code'])) return 0;
+        $result = $this->client->get('payments', 'select=amount&status=eq.paid');
+        if (!is_array($result) || isset($result['error'])) return 0;
         return array_sum(array_column($result, 'amount'));
     }
 
     public function getOrdersByStatus() {
-        $statuses = ['pending', 'active', 'completed', 'cancelled'];
+        // Sesuai CHECK constraint di schema kamu
+        $statuses = [
+            'menunggu_pembayaran',
+            'paid',
+            'diproses',
+            'hasil_dikirim',
+            'revisi',
+            'selesai',
+            'dibatalkan'
+        ];
         $data = [];
         foreach ($statuses as $status) {
-            $result = $this->client->get('orders', 'select=id_orders&status=eq.' . $status);
-            $data[$status] = (is_array($result) && !isset($result['code'])) ? count($result) : 0;
+            $result = $this->client->get('orders', 'select=id_order&status=eq.' . $status);
+            $data[$status] = $this->safeCount($result);
         }
         return $data;
+    }
+
+    public function getRecentOrders() {
+        $result = $this->client->get(
+            'orders',
+            'select=id_order,status,created_at&order=created_at.desc&limit=5'
+        );
+        // Pastikan return array of arrays, bukan null/error
+        if (!is_array($result) || isset($result['error']) || isset($result['code'])) {
+            return [];
+        }
+        return $result;
+    }
+
+    public function getRecentUsers() {
+        $result = $this->client->get(
+            'users',
+            'select=id_user,nama,email,created_at&order=created_at.desc&limit=5'
+        );
+        if (!is_array($result) || isset($result['error']) || isset($result['code'])) {
+            return [];
+        }
+        return $result;
     }
 }

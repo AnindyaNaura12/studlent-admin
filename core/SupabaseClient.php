@@ -12,6 +12,19 @@ class SupabaseClient {
         $endpoint = $this->url . '/rest/v1/' . $table . '?' . $query;
         return $this->request('GET', $endpoint);
     }
+      public function post($table, $data) {
+
+        $endpoint =
+            $this->url .
+            '/rest/v1/' .
+            $table;
+
+        return $this->request(
+            'POST',
+            $endpoint,
+            $data
+        );
+    }
 
     private function request($method, $endpoint, $body = null) {
         $ch = curl_init();
@@ -29,6 +42,9 @@ class SupabaseClient {
         }
 
         $response = curl_exec($ch);
+          if (curl_errno($ch)) {
+            die('Curl Error: ' . curl_error($ch));
+        }
         curl_close($ch);
         return json_decode($response, true);
     }
