@@ -153,11 +153,12 @@ class ServiceModel {
         ]);
 
         $response = curl_exec($ch);
+        
 
         // Debug kalau error
-        if (curl_errno($ch)) {
-            die('Curl Error: ' . curl_error($ch));
-        }
+        //if (curl_errno($ch)) {
+          //  die('Curl Error: ' . curl_error($ch));
+        //}
 
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
@@ -199,6 +200,6 @@ class ServiceModel {
             }
         }
 
-        return $httpCode === 204;
+        return in_array($httpCode, [200, 204]);
     }
 }

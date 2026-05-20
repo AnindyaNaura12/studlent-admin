@@ -221,22 +221,64 @@
                 <div class="panel-body">
                     <form method="POST" action="<?= BASE_URL ?>service/updatestatus">
                         <input type="hidden" name="id" value="<?= htmlspecialchars($service['id_service']) ?>">
-                        <input type="hidden" name="from" value="<?= htmlspecialchars($service['id_service']) ?>">
+                        <input type="hidden" name="from" value="detail">
                         <div class="status-form">
-                            <?php if ($service['status'] !== 'active'): ?>
-                            <button type="submit" name="status" value="active" class="btn-approve" onclick="return confirm('Approve service ini?')">
-                                <i class="ti ti-check"></i> Approve
-                            </button>
+
+                            <?php if ($service['status'] === 'pending'): ?>
+
+                                <button
+                                    type="submit"
+                                    name="status"
+                                    value="active"
+                                    class="btn-approve"
+                                    onclick="return confirm('Approve service ini?')"
+                                >
+                                    <i class="ti ti-check"></i>
+                                    Approve
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    name="status"
+                                    value="rejected"
+                                    class="btn-reject"
+                                    onclick="return confirm('Reject service ini?')"
+                                >
+                                    <i class="ti ti-x"></i>
+                                    Reject
+                                </button>
+
                             <?php endif; ?>
-                            <?php if ($service['status'] !== 'rejected'): ?>
-                            <button type="submit" name="status" value="rejected" class="btn-reject" onclick="return confirm('Reject service ini?')">
-                                <i class="ti ti-x"></i> Reject
-                            </button>
-                            <?php endif; ?>
+
+
                             <?php if ($service['status'] === 'active'): ?>
-                            <button type="submit" name="status" value="inactive" class="btn-inactive" onclick="return confirm('Nonaktifkan service ini?')">
-                                <i class="ti ti-eye-off"></i> Nonaktifkan
-                            </button>
+
+                                <button
+                                    type="submit"
+                                    name="status"
+                                    value="inactive"
+                                    class="btn-inactive"
+                                    onclick="return confirm('Nonaktifkan service ini?')"
+                                >
+                                    <i class="ti ti-eye-off"></i>
+                                    Nonaktifkan
+                                </button>
+
+                            <?php endif; ?>
+
+                            <?php if ($service['status'] === 'inactive'): ?>
+
+                                <button
+                                    type="submit"
+                                    name="status"
+                                    value="active"
+                                    class="btn-approve"
+                                    onclick="return confirm('Aktifkan kembali service ini?')"
+                                >
+                                    <i class="ti ti-check"></i>
+                                    Aktifkan
+                                </button>
+
                             <?php endif; ?>
                         </div>
                     </form>
