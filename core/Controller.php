@@ -12,4 +12,15 @@ class Controller {
         require_once BASE_PATH . '/app/Models/' . $model . '.php';
         return new $model();
     }
+
+    protected function requireLogin() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['admin_id'])) {
+            header('Location: ' . BASE_URL . '/auth/login');
+            exit;
+        }
+    }
 }

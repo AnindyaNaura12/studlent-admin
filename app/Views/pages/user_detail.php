@@ -36,7 +36,6 @@
 
         .detail-grid { display: grid; grid-template-columns: 300px 1fr; gap: 20px; }
 
-        /* Profile Card */
         .profile-card { background: #fff; border-radius: 12px; border: 1px solid #ffe0cc; padding: 28px 20px; text-align: center; }
         .profile-avatar { width: 90px; height: 90px; border-radius: 50%; background: #f97316; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 32px; font-weight: 700; margin: 0 auto 16px; overflow: hidden; }
         .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
@@ -57,14 +56,12 @@
         .meta-label { color: #9ca3af; font-size: 11px; }
         .meta-value { color: #374151; }
 
-        /* Info Panel */
         .info-panel { display: flex; flex-direction: column; gap: 20px; }
         .panel { background: #fff; border-radius: 12px; border: 1px solid #ffe0cc; overflow: hidden; }
         .panel-header { padding: 16px 20px; border-bottom: 1px solid #ffe0cc; }
         .panel-title { font-size: 14px; font-weight: 600; }
         .panel-body { padding: 20px; }
         .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .field { }
         .field-label { font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
         .field-value { font-size: 14px; color: #111827; font-weight: 500; }
         .field-value.empty { color: #d1d5db; font-style: italic; font-weight: 400; }
@@ -121,11 +118,9 @@
         </a>
     </div>
 
-    <a href="/user" class="btn-back"><i class="ti ti-arrow-left"></i> Kembali ke Users</a>
+    <a href="<?= BASE_URL ?>user" class="btn-back"><i class="ti ti-arrow-left"></i> Kembali ke Users</a>
 
     <div class="detail-grid">
-
-        <!-- Profile Card -->
         <div class="profile-card">
             <div class="profile-avatar">
                 <?php if (!empty($user['foto'])): ?>
@@ -168,8 +163,7 @@
                 </div>
             </div>
 
-            <!-- Toggle Active -->
-            <form method="POST" action="/user/toggle" style="margin-top:20px">
+            <form method="POST" action="<?= BASE_URL ?>user/toggle" style="margin-top:20px">
                 <input type="hidden" name="id" value="<?= htmlspecialchars($user['id_user']) ?>">
                 <input type="hidden" name="status" value="<?= $user['is_active'] ? '1' : '0' ?>">
                 <?php if ($user['is_active']): ?>
@@ -184,10 +178,7 @@
             </form>
         </div>
 
-        <!-- Info Panels -->
         <div class="info-panel">
-
-            <!-- Info Umum -->
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">Informasi Umum</div>
@@ -226,7 +217,6 @@
                 </div>
             </div>
 
-            <!-- Foto Freelancer (hanya tampil jika role freelancer) -->
             <?php if (($user['role'] ?? '') === 'freelancer'): ?>
             <div class="panel">
                 <div class="panel-header">
@@ -241,7 +231,6 @@
                 </div>
             </div>
             <?php endif; ?>
-
         </div>
     </div>
 </main>

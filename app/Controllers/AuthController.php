@@ -10,9 +10,19 @@ class AuthController extends Controller {
     }
 
     public function login() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // kalau sudah login, jangan tampilkan login lagi
+        if (isset($_SESSION['admin_id'])) {
+            header('Location: ' . BASE_URL . '/dashboard');
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email    = trim($_POST['email']);
-            $password = trim($_POST['password']);
+            $email = trim($_POST['email'] ?? '');
+            $password = trim($_POST['password'] ?? '');
 
             $admin = $this->adminModel->findByEmail($email);
 
@@ -23,9 +33,10 @@ class AuthController extends Controller {
                     return;
                 }
 
-                session_start();
-                $_SESSION['admin_id']   = $admin['id'];
+                $_SESSION['admin_id'] = $admin['id'];
                 $_SESSION['admin_nama'] = $admin['nama'];
+                $_SESSION['admin_email'] = $admin['email'];
+
                 header('Location: ' . BASE_URL . '/dashboard');
                 exit;
             }
@@ -39,9 +50,14 @@ class AuthController extends Controller {
     }
 
     public function logout() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        session_unset();
         session_destroy();
-        header('Location: ' . BASE_URL . 'auth/login');
+
+        header('Location: ' . BASE_URL . '/auth/login');
         exit;
     }
 }

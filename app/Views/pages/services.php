@@ -24,8 +24,6 @@
         .sidebar-footer { padding: 16px 12px; border-top: 1px solid #ffe0cc; }
         .logout-btn { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; font-size: 14px; color: #ef4444; text-decoration: none; transition: all 0.15s; width: 100%; background: none; border: none; cursor: pointer; }
         .logout-btn:hover { background: #fee2e2; }
-    
-         /* Main */
 
         .main { margin-left: 240px; padding: 28px 32px; }
         .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
@@ -36,13 +34,13 @@
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
         .stat-card { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #ffe0cc; position: relative; overflow: hidden; }
         .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #f97316; }
-        .stat-card.pending::before  { background: #f59e0b; }
-        .stat-card.active::before   { background: #10b981; }
+        .stat-card.pending::before { background: #f59e0b; }
+        .stat-card.active::before { background: #10b981; }
         .stat-card.inactive::before { background: #6b7280; }
         .stat-card.rejected::before { background: #ef4444; }
         .stat-icon { width: 40px; height: 40px; border-radius: 10px; background: #fff1e6; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 20px; color: #f97316; }
-        .stat-card.pending .stat-icon  { background: #fef3c7; color: #f59e0b; }
-        .stat-card.active .stat-icon   { background: #d1fae5; color: #10b981; }
+        .stat-card.pending .stat-icon { background: #fef3c7; color: #f59e0b; }
+        .stat-card.active .stat-icon { background: #d1fae5; color: #10b981; }
         .stat-card.inactive .stat-icon { background: #f3f4f6; color: #6b7280; }
         .stat-card.rejected .stat-icon { background: #fee2e2; color: #ef4444; }
         .stat-label { font-size: 12px; color: #9ca3af; margin-bottom: 4px; }
@@ -50,14 +48,65 @@
 
         .toolbar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
         .search-wrap { position: relative; flex: 1; min-width: 200px; }
-        .search-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 17px; }
-        .search-wrap input { width: 100%; padding: 9px 12px 9px 38px; border: 1px solid #ffe0cc; border-radius: 8px; font-size: 14px; background: #fff; outline: none; }
+
+        .search-icon-btn {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: transparent;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+            z-index: 2;
+            transition: color 0.15s ease;
+        }
+        .search-icon-btn:hover { color: #f97316; }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 9px 42px 9px 38px;
+            border: 1px solid #ffe0cc;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #fff;
+            outline: none;
+        }
         .search-wrap input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.1); }
+
+        .clear-search {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: #f3f4f6;
+            color: #6b7280;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.15s ease;
+        }
+        .clear-search.show { display: flex; }
+        .clear-search:hover { background: #fff1e6; color: #f97316; }
+
         select { padding: 9px 12px; border: 1px solid #ffe0cc; border-radius: 8px; font-size: 14px; background: #fff; color: #374151; outline: none; cursor: pointer; }
         select:focus { border-color: #f97316; }
         .btn-filter { padding: 9px 18px; background: #f97316; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
         .btn-filter:hover { background: #ea6c0a; }
         .btn-reset { padding: 9px 14px; background: #fff; color: #6b7280; border: 1px solid #ffe0cc; border-radius: 8px; font-size: 14px; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        .btn-reset:hover { background: #f9fafb; }
 
         .panel { background: #fff; border-radius: 12px; border: 1px solid #ffe0cc; overflow: hidden; }
         .panel-header { padding: 16px 20px; border-bottom: 1px solid #ffe0cc; display: flex; justify-content: space-between; align-items: center; }
@@ -75,9 +124,9 @@
         .service-title { font-weight: 500; color: #111827; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-        .badge-active   { background: #d1fae5; color: #065f46; }
+        .badge-active { background: #d1fae5; color: #065f46; }
         .badge-inactive { background: #f3f4f6; color: #6b7280; }
-        .badge-pending  { background: #fef3c7; color: #92400e; }
+        .badge-pending { background: #fef3c7; color: #92400e; }
         .badge-rejected { background: #fee2e2; color: #991b1b; }
 
         .rating { display: flex; align-items: center; gap: 4px; font-size: 13px; color: #f59e0b; font-weight: 600; }
@@ -143,7 +192,6 @@
         </a>
     </div>
 
-    <!-- Stat Cards -->
     <div class="stats-grid">
         <div class="stat-card pending">
             <div class="stat-icon"><i class="ti ti-clock"></i></div>
@@ -167,13 +215,25 @@
         </div>
     </div>
 
-    <!-- Toolbar -->
-    <form method="GET" action="">
+    <form method="GET" action="<?= BASE_URL ?>service" id="filterForm">
         <div class="toolbar">
             <div class="search-wrap">
-                <i class="ti ti-search"></i>
-                <input type="text" name="search" placeholder="Cari judul service..." value="<?= htmlspecialchars($search) ?>">
+                <button type="submit" class="search-icon-btn" aria-label="Cari">
+                    <i class="ti ti-search"></i>
+                </button>
+                <input
+                    type="text"
+                    id="searchInput"
+                    name="search"
+                    placeholder="Cari judul service..."
+                    value="<?= htmlspecialchars($search) ?>"
+                    autocomplete="off"
+                >
+                <button type="button" id="clearSearchBtn" class="clear-search" aria-label="Hapus pencarian">
+                    <i class="ti ti-x"></i>
+                </button>
             </div>
+
             <select name="category">
                 <option value="">Semua Kategori</option>
                 <?php foreach ($categories as $cat): ?>
@@ -182,19 +242,20 @@
                     </option>
                 <?php endforeach; ?>
             </select>
+
             <select name="status">
                 <option value="">Semua Status</option>
-                <option value="pending"  <?= $status === 'pending'  ? 'selected' : '' ?>>Pending</option>
-                <option value="active"   <?= $status === 'active'   ? 'selected' : '' ?>>Active</option>
+                <option value="pending" <?= $status === 'pending' ? 'selected' : '' ?>>Pending</option>
+                <option value="active" <?= $status === 'active' ? 'selected' : '' ?>>Active</option>
                 <option value="inactive" <?= $status === 'inactive' ? 'selected' : '' ?>>Inactive</option>
                 <option value="rejected" <?= $status === 'rejected' ? 'selected' : '' ?>>Rejected</option>
             </select>
+
             <button type="submit" class="btn-filter"><i class="ti ti-filter"></i> Filter</button>
             <a href="<?= BASE_URL ?>service" class="btn-reset"><i class="ti ti-x"></i> Reset</a>
         </div>
     </form>
 
-    <!-- Table -->
     <div class="panel">
         <div class="panel-header">
             <span class="panel-title">Daftar Services</span>
@@ -272,6 +333,33 @@
         </table>
     </div>
 </main>
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const filterForm = document.getElementById('filterForm');
+
+    function toggleClearButton() {
+        if (searchInput.value.trim() !== '' || document.activeElement === searchInput) {
+            clearSearchBtn.classList.add('show');
+        } else {
+            clearSearchBtn.classList.remove('show');
+        }
+    }
+
+    searchInput.addEventListener('input', toggleClearButton);
+    searchInput.addEventListener('focus', toggleClearButton);
+    searchInput.addEventListener('blur', function () {
+        setTimeout(toggleClearButton, 100);
+    });
+
+    clearSearchBtn.addEventListener('click', function () {
+        searchInput.value = '';
+        filterForm.submit();
+    });
+
+    toggleClearButton();
+</script>
 
 </body>
 </html>
