@@ -25,7 +25,7 @@ class OrderController extends Controller {
     }
 
     public function detail() {
-        $id    = $_GET['id'] ?? null;
+        $id = $_GET['id'] ?? null;
         $order = $id ? $this->model->getOrderById($id) : null;
 
         if (!$order) {
@@ -40,7 +40,7 @@ class OrderController extends Controller {
     }
 
     public function updatestatus() {
-        $id     = $_POST['id']     ?? null;
+        $id = $_POST['id'] ?? null;
         $status = $_POST['status'] ?? null;
 
         $allowed = ['pending', 'active', 'completed', 'cancelled'];

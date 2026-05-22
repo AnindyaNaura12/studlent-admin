@@ -10,17 +10,19 @@ class DashboardController extends Controller {
     }
 
     public function index() {
+        $this->requireLogin();
+
         $data = [
-            'title'               => 'Dashboard - Studlent',
-            'totalUsers'          => $this->model->getTotalUsers(),
-            'totalFreelancers'    => $this->model->getTotalFreelancers(),
-            'totalOrders'         => $this->model->getTotalOrders(),
-            'totalRevenue'        => $this->model->getTotalRevenue(),
-            'totalServices'       => $this->model->getTotalServices(),
-            'pendingWithdrawals'  => $this->model->getPendingWithdrawals(),
-            'ordersByStatus'      => $this->model->getOrdersByStatus(),
-            'recentOrders'        => $this->model->getRecentOrders(),
-            'recentUsers'         => $this->model->getRecentUsers(),
+            'title'              => 'Dashboard - Studlent',
+            'totalUsers'         => $this->model->getTotalUsers(),
+            'totalFreelancers'   => $this->model->getTotalFreelancers(),
+            'totalOrders'        => $this->model->getTotalOrders(),
+            'totalRevenue'       => $this->model->getTotalRevenue(),
+            'totalServices'      => $this->model->getTotalServices(),
+            'pendingWithdrawals' => $this->model->getPendingWithdrawals(),
+            'ordersByStatus'     => $this->model->getOrdersByStatus(),
+            'recentOrders'       => $this->model->getRecentOrders(),
+            'recentUsers'        => $this->model->getRecentUsers(),
         ];
 
         $this->view('pages/dashboard', $data);

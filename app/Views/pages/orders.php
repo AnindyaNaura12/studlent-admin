@@ -48,14 +48,68 @@
 
         .toolbar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
         .search-wrap { position: relative; flex: 1; min-width: 200px; }
-        .search-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 17px; }
-        .search-wrap input { width: 100%; padding: 9px 12px 9px 38px; border: 1px solid #ffe0cc; border-radius: 8px; font-size: 14px; background: #fff; outline: none; }
-        .search-wrap input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.1); }
+
+        .search-icon-btn {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: transparent;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+            z-index: 2;
+            transition: color 0.15s ease;
+        }
+        .search-icon-btn:hover { color: #f97316; }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 9px 42px 9px 38px;
+            border: 1px solid #ffe0cc;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #fff;
+            outline: none;
+        }
+        .search-wrap input:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: #f3f4f6;
+            color: #6b7280;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.15s ease;
+        }
+        .clear-search.show { display: flex; }
+        .clear-search:hover { background: #fff1e6; color: #f97316; }
+
         select { padding: 9px 12px; border: 1px solid #ffe0cc; border-radius: 8px; font-size: 14px; background: #fff; color: #374151; outline: none; cursor: pointer; }
         select:focus { border-color: #f97316; }
         .btn-filter { padding: 9px 18px; background: #f97316; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
         .btn-filter:hover { background: #ea6c0a; }
         .btn-reset { padding: 9px 14px; background: #fff; color: #6b7280; border: 1px solid #ffe0cc; border-radius: 8px; font-size: 14px; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        .btn-reset:hover { background: #f9fafb; }
 
         .panel { background: #fff; border-radius: 12px; border: 1px solid #ffe0cc; overflow: hidden; }
         .panel-header { padding: 16px 20px; border-bottom: 1px solid #ffe0cc; display: flex; justify-content: space-between; align-items: center; }
@@ -160,19 +214,33 @@
     </div>
 
     <!-- Toolbar -->
-    <form method="GET" action="">
+    <form method="GET" action="<?= BASE_URL ?>order" id="filterForm">
         <div class="toolbar">
             <div class="search-wrap">
-                <i class="ti ti-search"></i>
-                <input type="text" name="search" placeholder="Cari ID client atau freelancer..." value="<?= htmlspecialchars($search) ?>">
+                <button type="submit" class="search-icon-btn" aria-label="Cari">
+                    <i class="ti ti-search"></i>
+                </button>
+                <input
+                    type="text"
+                    id="searchInput"
+                    name="search"
+                    placeholder="Cari ID order..."
+                    value="<?= htmlspecialchars($search) ?>"
+                    autocomplete="off"
+                >
+                <button type="button" id="clearSearchBtn" class="clear-search" aria-label="Hapus pencarian">
+                    <i class="ti ti-x"></i>
+                </button>
             </div>
+
             <select name="status">
                 <option value="">Semua Status</option>
-                <option value="pending"   <?= $status === 'pending'   ? 'selected' : '' ?>>Pending</option>
-                <option value="active"    <?= $status === 'active'    ? 'selected' : '' ?>>Active</option>
+                <option value="pending" <?= $status === 'pending' ? 'selected' : '' ?>>Pending</option>
+                <option value="active" <?= $status === 'active' ? 'selected' : '' ?>>Active</option>
                 <option value="completed" <?= $status === 'completed' ? 'selected' : '' ?>>Completed</option>
                 <option value="cancelled" <?= $status === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
             </select>
+
             <button type="submit" class="btn-filter"><i class="ti ti-filter"></i> Filter</button>
             <a href="<?= BASE_URL ?>order" class="btn-reset"><i class="ti ti-x"></i> Reset</a>
         </div>
@@ -237,6 +305,33 @@
         </table>
     </div>
 </main>
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const filterForm = document.getElementById('filterForm');
+
+    function toggleClearButton() {
+        if (searchInput.value.trim() !== '' || document.activeElement === searchInput) {
+            clearSearchBtn.classList.add('show');
+        } else {
+            clearSearchBtn.classList.remove('show');
+        }
+    }
+
+    searchInput.addEventListener('input', toggleClearButton);
+    searchInput.addEventListener('focus', toggleClearButton);
+    searchInput.addEventListener('blur', function () {
+        setTimeout(toggleClearButton, 100);
+    });
+
+    clearSearchBtn.addEventListener('click', function () {
+        searchInput.value = '';
+        filterForm.submit();
+    });
+
+    toggleClearButton();
+</script>
 
 </body>
 </html>

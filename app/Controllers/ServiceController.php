@@ -45,21 +45,41 @@ class ServiceController extends Controller {
     }
 
     public function updatestatus() {
-        $id     = $_POST['id']     ?? null;
+
+        $id     = $_POST['id'] ?? null;
         $status = $_POST['status'] ?? null;
 
         $allowed = ['active', 'inactive', 'pending', 'rejected'];
-        if ($id && in_array($status, $allowed)) {
-            $this->model->updateStatus($id, $status);
+
+        // Validasi
+        if (!$id || !in_array($status, $allowed)) {
+
+            header('Location: ' . BASE_URL . 'service');
+            exit;
         }
 
-        // Redirect balik ke detail kalau ada, atau ke list
-        $from = $_POST['from'] ?? '';
-        if ($from) {
-            header('Location: ' . BASE_URL . 'service/detail?id=' . urlencode($from));
-        } else {
+        // Update status
+        $updated = $this->model->updateStatus($id, $status);
+
+        // Kalau gagal
+        if (!$updated) {
+
             header('Location: ' . BASE_URL . 'service');
+            exit;
         }
+
+        // Redirect kembali
+        $from = $_POST['from'] ?? '';
+
+        // Jika dari detail service
+        if ($from === 'detail') {
+
+            header('Location: ' . BASE_URL . 'service/detail?id=' . urlencode($id));
+            exit;
+        }
+
+        // Default balik ke list service
+        header('Location: ' . BASE_URL . 'service');
         exit;
     }
 }
